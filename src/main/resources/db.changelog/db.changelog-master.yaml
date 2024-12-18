@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: saidovdiyorbek
+      changes:
+        - sqlFile:
+            path: V1__create_admin.sql
+            relativeToChangelogFile: true
