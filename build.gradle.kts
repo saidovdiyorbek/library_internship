@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.4.0"
     id("io.spring.dependency-management") version "1.1.6"
+    id("org.liquibase.gradle") version "2.0.4"
 }
 
 group = "intership"
@@ -33,6 +34,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.liquibase:liquibase-core:4.22.0")
+    implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
+    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.5")
+    runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5")
+    implementation("org.projectlombok:lombok")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
     runtimeOnly("com.mysql:mysql-connector-j")
