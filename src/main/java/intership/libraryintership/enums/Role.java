@@ -1,5 +1,5 @@
 package intership.libraryintership.enums;
 
 public enum Role {
-    ADMIN, LIBRARIAN
+    ROLE_ADMIN, ROLE_LIBRARIAN
 }
