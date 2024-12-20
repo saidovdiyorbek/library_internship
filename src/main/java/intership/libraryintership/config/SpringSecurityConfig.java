@@ -4,10 +4,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,6 +26,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SpringSecurityConfig {
 
@@ -36,8 +39,14 @@ public class SpringSecurityConfig {
         http
                 .authorizeHttpRequests(hrr -> {
                         hrr
-                                .requestMatchers("/api/auth/**").permitAll()
+                                //APIs for permitAll
                                 .requestMatchers("/api/v1/auth/login").permitAll()
+
+
+
+                                //APIs for ADMIN
+                                .requestMatchers("/api/v1/librarians/create").hasRole("ADMIN")
+
                                 .anyRequest().authenticated();
 
                 })
@@ -75,7 +84,7 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
