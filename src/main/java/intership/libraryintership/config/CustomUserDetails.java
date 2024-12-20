@@ -14,13 +14,13 @@ import java.util.List;
 
 @Getter
 public class CustomUserDetails implements UserDetails {
-    private Integer id;
-    private String name;
-    private String username;
-    private String password;
-    private String email;
-    private Status status;
-    private Role role;
+    private final Integer id;
+    private final String name;
+    private final String username;
+    private final String password;
+    private final String email;
+    private final Status status;
+    private final Role role;
 
     public CustomUserDetails(Profile profile) {
         this.id = profile.getId();
@@ -39,6 +39,7 @@ public class CustomUserDetails implements UserDetails {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role.name()));
 
+        System.out.println(role.name());
         return authorities;
     }
 
