@@ -5,6 +5,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class JwtUtil {
 
     private static final long tokenLiveTime = 1000L * 60 * 60 * 24 * 7; // 1 week
     private static final long refreshTokenLiveTime = 1000L * 60 * 60 * 24 * 30; // 1 month
-    private static final String secretKey = "winnerWinnerChickenDinnerAgarBoshBo'shBo'lsaUniTo'ldirishKerakBo'lmasaKichrayishniBoshlaydi";
+    private static final String secretKey = "winnerWinnerChickenDinnerAgarBoshBoshBolsaUniToldirishKerakBolmasaKichrayishniBoshlaydi";
 
     public static String encode(String login, String role){
         Map<String, Object> extraClaims  = new HashMap<>();
@@ -56,7 +57,7 @@ public class JwtUtil {
             String role = (String) claims.get("role");
             String login = (String) claims.get("login");
 
-            return new JwtDTO(role, login);
+            return new JwtDTO(login, role);
     }
 
     public static TokenValidationResult validateToken(String token){
@@ -84,7 +85,7 @@ public class JwtUtil {
     }
 
     private static Key getSignKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+        return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     public static class TokenValidationResult{
