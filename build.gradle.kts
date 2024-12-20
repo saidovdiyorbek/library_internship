@@ -36,6 +36,8 @@ dependencies {
     implementation("org.liquibase:liquibase-core:4.22.0")
     implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
     implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
+    implementation ("org.slf4j:slf4j-api:2.0.9")
+
     runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5")
     implementation("org.projectlombok:lombok")
