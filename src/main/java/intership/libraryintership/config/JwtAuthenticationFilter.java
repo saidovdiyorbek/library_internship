@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         final String header = request.getHeader("Authorization");
-        if(header == null || !header.startsWith("Bearer")){
+        if(header == null || !header.startsWith("Bearer ")){
             filterChain.doFilter(request, response);
             return;
         }
@@ -49,6 +50,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+            Object principal = authentication1.getPrincipal();
+            System.out.println(((CustomUserDetails) principal).getId());
+            System.out.println(((CustomUserDetails) principal).getRole());
+
             filterChain.doFilter(request, response);
         }catch (JwtException | UsernameNotFoundException e){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
