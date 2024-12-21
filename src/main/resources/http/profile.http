@@ -1,12 +1,49 @@
+### Create profile only admin
 POST http://localhost:8080/api/v1/librarians/create
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0NzA3OTcyLCJleHAiOjE3MzUzMTI3NzJ9.4MDVbziuqTO5oktjUz4iHsC6AW83lGqpJURXZ45DzNU
 
 {
   "name": "Oybek",
-  "email": "ddiiyyoorrrr009@gmail.com",
-  "username": "quyosh",
+  "email": "kuz@gmail.com",
+  "username": "quyon",
   "password": "12312312",
   "role": "ROLE_LIBRARIAN",
   "status": "ACTIVE"
+}
+
+### Get all librarians only admin
+GET http://localhost:8080/api/v1/librarians/getAll
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InF1eW9uIiwic3ViIjoicXV5b24iLCJpYXQiOjE3MzQ3MzkxMzcsImV4cCI6MTczNTM0MzkzN30.C_fSkn08J4m7OnWpTeDSFJ_u7cTU5ySmgjQRPPIH-8g
+
+
+### Update full only admin
+PUT http://localhost:8080/api/v1/librarians/update/8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0NzA3OTcyLCJleHAiOjE3MzUzMTI3NzJ9.4MDVbziuqTO5oktjUz4iHsC6AW83lGqpJURXZ45DzNU
+
+{
+  "name": "Pazik",
+  "email": "pazik@gmail.com",
+  "username": "admin2",
+  "password": "12312312",
+  "role": "ROLE_LIBRARIAN",
+  "status": "ACTIVE"
+}
+
+### Delete profile only admin
+DELETE http://localhost:8080/api/v1/librarians/delete/10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0NzA3OTcyLCJleHAiOjE3MzUzMTI3NzJ9.4MDVbziuqTO5oktjUz4iHsC6AW83lGqpJURXZ45DzNU
+
+### Update profile own
+PUT http://localhost:8080/api/v1/librarians/update-own
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InF1eW9uIiwic3ViIjoicXV5b24iLCJpYXQiOjE3MzQ3NDE3NDcsImV4cCI6MTczNTM0NjU0N30.DGs-klaHv0DOr9ZTea1bZuuGAwZMUstMQ1uG0Vq4W7w
+
+{
+  "name": "Ziyod",
+  "username": "sotila",
+  "password": "12345678"
 }
