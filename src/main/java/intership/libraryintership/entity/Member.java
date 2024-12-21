@@ -30,4 +30,7 @@ public class Member {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_id", insertable = false, updatable = false)
     private Profile profile;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 }
