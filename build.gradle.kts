@@ -35,6 +35,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.liquibase:liquibase-core:4.22.0")
     implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation ("org.mapstruct:mapstruct:1.5.5.Final")
     implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
     implementation ("org.slf4j:slf4j-api:2.0.9")
 
@@ -45,6 +46,7 @@ dependencies {
     runtimeOnly("com.microsoft.sqlserver:mssql-jdbc")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor ("org.mapstruct:mapstruct-processor:1.5.5.Final")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
