@@ -2,6 +2,7 @@ package intership.libraryintership.service;
 
 import intership.libraryintership.dto.genre.GenreCreateDTO;
 import intership.libraryintership.entity.Genre;
+import intership.libraryintership.exceptions.DataNotFoundException;
 import intership.libraryintership.mapper.GenreMapper;
 import intership.libraryintership.repository.GenreRepository;
 import jakarta.validation.Valid;
@@ -52,5 +53,23 @@ public class GenreService {
         }
         log.info("Get all Genre in service not duplicate: {}", genres);
         return genres;
+    }
+
+    public GenreCreateDTO.GenreStandardResponse update(String genreId, GenreCreateDTO dto) {
+        log.info("Update Genre in service: {}", dto);
+        Optional<Genre> byId = repository.findById(genreId);
+        if (byId.isEmpty()) {
+            throw new DataNotFoundException("Genre not found");
+        }
+        Genre genre = byId.get();
+        genre.setTitle(dto.title().trim());
+        repository.save(genre);
+        return new GenreCreateDTO.GenreStandardResponse(genre.getId(), genre.getTitle(), null);
+    }
+
+    public String delete(String genreId) {
+        log.info("delete book in service");
+        repository.findById(genreId).ifPresent(repository::delete);
+        return genreId;
     }
 }
