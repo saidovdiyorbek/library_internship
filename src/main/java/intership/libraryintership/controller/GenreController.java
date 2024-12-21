@@ -29,4 +29,16 @@ public class GenreController {
         logger.info("Get all genre");
         return ResponseEntity.ok(service.getAll());
     }
+
+    @PutMapping("/update/{genreId}")
+    public ResponseEntity<GenreCreateDTO.GenreStandardResponse> update(@PathVariable("genreId") String genreId, @RequestBody GenreCreateDTO dto){
+        logger.info("Update genre: {}", genreId);
+        return ResponseEntity.ok(service.update(genreId, dto));
+    }
+
+    @DeleteMapping("/delete/{genreId}")
+    public ResponseEntity<String> delete(@PathVariable("genreId") String genreId){
+        logger.info("Delete genre: {}", genreId);
+        return ResponseEntity.ok(service.delete(genreId));
+    }
 }
