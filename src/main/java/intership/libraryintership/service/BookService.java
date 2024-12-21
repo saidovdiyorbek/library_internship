@@ -59,12 +59,20 @@ public class BookService {
     }
 
     public BookCreateDTO.BookStandardResponse update(String bookId, BookCreateDTO dto) {
+        logger.info("update book in service");
         Optional<Book> optionalBook = repository.findById(bookId);
         if (!optionalBook.isPresent()) {
             throw new DataNotFoundException("Book not found " + bookId);
         }
         Book book = mapper.toBook(dto);
         repository.save(book);
+        logger.info("update book successful in service");
         return mapper.toBookStandardResponse(book);
+    }
+
+    public String delete(String bookId) {
+        logger.info("delete book in service");
+        repository.findById(bookId).ifPresent(repository::delete);
+        return bookId;
     }
 }

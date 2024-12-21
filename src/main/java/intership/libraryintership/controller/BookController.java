@@ -35,4 +35,10 @@ public class BookController {
         logger.info("update book");
         return ResponseEntity.ok(service.update(bookId, dto));
     }
+
+    @DeleteMapping("/delete/{bookId}")
+    public ResponseEntity<String> delete(@PathVariable("bookId") String bookId){
+        logger.info("delete book");
+        return ResponseEntity.ok(service.delete(bookId));
+    }
 }
