@@ -1,5 +1,6 @@
 package intership.libraryintership.dto.profile;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import intership.libraryintership.enums.Role;
 import intership.libraryintership.enums.Status;
 import jakarta.validation.constraints.Email;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public record ProfileCreateDTO(
@@ -32,4 +34,23 @@ public record ProfileCreateDTO(
         LocalTime startTime,
         LocalTime endTime
 ) {
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        public record ProfileResponse(
+                Integer id,
+                String name,
+                String email,
+                String username,
+                Role role,
+                Status status,
+                LocalTime startTime,
+                LocalTime endTime,
+                LocalDateTime createdAt,
+                Boolean visible
+        )
+        {}
+        public record ProfileUpdateOwnerDTO(
+         String username,
+         String name,
+         String password
+        ){}
 }
