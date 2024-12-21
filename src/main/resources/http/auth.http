@@ -6,11 +6,19 @@ Content-Type: application/json
   "password": "123123"
 }
 
-###
+### eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InF1eW9uIiwic3ViIjoicXV5b24iLCJpYXQiOjE3MzQ3MzkxMzcsImV4cCI6MTczNTM0MzkzN30.C_fSkn08J4m7OnWpTeDSFJ_u7cTU5ySmgjQRPPIH-8g
 POST localhost:8080/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "quyosh",
+  "username": "quyon",
   "password": "12312312"
+}
+
+### Refresh token
+POST http://localhost:8080/api/v1/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": ""
 }

@@ -40,7 +40,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(hrr -> {
                         hrr
                                 //APIs for permitAll
-                                .requestMatchers("/api/v1/auth/login").permitAll()
+                                .requestMatchers("/api/v1/auth/**").permitAll()
 
                                 //APIs for authenticate
                                 .requestMatchers("/api/v1/librarians/update-own").authenticated()
