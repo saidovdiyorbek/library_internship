@@ -42,10 +42,17 @@ public class SpringSecurityConfig {
                                 //APIs for permitAll
                                 .requestMatchers("/api/v1/auth/login").permitAll()
 
+                                //APIs for authenticate
+                                .requestMatchers("/api/v1/librarians/update-own").authenticated()
+
 
 
                                 //APIs for ADMIN
+                                .requestMatchers("/api/v1/librarians/update/*").hasRole("ADMIN")
                                 .requestMatchers("/api/v1/librarians/create").hasRole("ADMIN")
+                                .requestMatchers("/api/v1/librarians/getAll").hasRole("ADMIN")
+                                .requestMatchers("api/v1/librarians/delete/*").hasRole("ADMIN")
+
 
                                 .anyRequest().authenticated();
 
