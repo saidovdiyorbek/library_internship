@@ -1,8 +1,6 @@
 package intership.libraryintership.handler;
 
-import intership.libraryintership.exceptions.DuplicateProfileException;
-import intership.libraryintership.exceptions.UnauthorizedException;
-import intership.libraryintership.exceptions.UserNotFoundException;
+import intership.libraryintership.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -51,4 +49,16 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public ResponseEntity<?> exceptionHandler(UnauthorizedException e) {
         return ResponseEntity.status(401).body(e.getMessage());
     }
+
+    @ExceptionHandler(DuplicateDataException.class)
+    public ResponseEntity<?> exceptionHandler(DuplicateDataException e) {
+        return ResponseEntity.status(409).body(e.getMessage());
+    }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<?> exceptionHandler(DataNotFoundException e) {
+        return ResponseEntity.status(404).body(e.getMessage());
+    }
+
+
 }
