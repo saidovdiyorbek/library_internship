@@ -29,9 +29,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb
 }
 
 ### Get all available
-GET localhost:8080/api/v1/book/getAll-available
+GET localhost:8080/api/v1/book/getAll-filter
 Content-Type: application/json
 
-### Get all genre
-GET localhost:8080/api/v1/book/getAll-genre/Action
+{
+  "available": true,
+  "genre": "Action",
+  "author": {
+    "firstName": "Alisher",
+    "lastName": "Navoiy"
+  }
+}
+
+### Search by title
+GET localhost:8080/api/v1/book/search-title/E
+Content-Type: application/json
+
+### Search by author
+GET localhost:8080/api/v1/book/search-author/N
 Content-Type: application/json
