@@ -7,6 +7,7 @@ import intership.libraryintership.exceptions.BookAlreadyExistsException;
 import intership.libraryintership.exceptions.DataNotFoundException;
 import intership.libraryintership.mapper.book.BookMapper;
 import intership.libraryintership.repository.BookRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,25 +98,58 @@ public class BookService {
         return new StandardResponse("Book found", true, byId.get());
     }
 
-    public List<BookCreateDTO.BookResponseMember> getAllAvailable() {
+    public List<BookCreateDTO.BookResponseMember> getAllGenre(String genre) {
+        List<BookCreateDTO.BookResponseMember> books = new ArrayList<>();
+
+        for (Book book : repository.findByGenre(genre)) {
+            books.add(mapper.bookToBookResponseMember(book));
+        }
+        return books;
+    }
+
+    public List<BookCreateDTO.BookResponseMember> getAllFilter(BookCreateDTO.BookFilterDTO dto) {
         List<BookCreateDTO.BookResponseMember> books = new ArrayList<>();
 
         for (String bookId : repository.findByIdIs()) {
             Optional<Book> optionalBook = repository.findById(bookId);
 
+            if (!optionalBook.isPresent()) {
+                throw new DataNotFoundException("Book not found " + bookId);
+            }
+            Book book = optionalBook.get();
             int loanCount = loanService.loanCount(bookId);
-            if (optionalBook.isEmpty() || optionalBook.get().getCount() > loanCount) {
-                books.add(mapper.bookToBookResponseMember(optionalBook.get()));
+            if (book.getCount() > loanCount) {
+
+                String dtoFirstName = dto.author().firstName();
+                String dtoLastName = dto.author().lastName();
+
+                if (book.getAuthor().getFirstName().equals(dtoFirstName) &&
+                        book.getAuthor().getLastName().equals(dtoLastName)) {
+                    if (book.getGenre().getTitle().equals(dto.genre())) {
+                        books.add(mapper.bookToBookResponseMember(optionalBook.get()));
+                    }
+                }
             }
 
         }
         return books;
     }
 
-    public List<BookCreateDTO.BookResponseMember> getAllGenre(String genre) {
+    public List<BookCreateDTO.BookResponseMember> searchTitle(String title) {
+        logger.info("search title in service");
         List<BookCreateDTO.BookResponseMember> books = new ArrayList<>();
 
-        for (Book book : repository.findByGenre(genre)) {
+        for (Book book : repository.findByTitle(title)) {
+            books.add(mapper.bookToBookResponseMember(book));
+        }
+        return books;
+    }
+
+    public List<BookCreateDTO.BookResponseMember> searchAuthor(String author) {
+        logger.info("search author in service");
+        List<BookCreateDTO.BookResponseMember> books = new ArrayList<>();
+
+        for (Book book : repository.findByAuthor(author)) {
             books.add(mapper.bookToBookResponseMember(book));
         }
         return books;
