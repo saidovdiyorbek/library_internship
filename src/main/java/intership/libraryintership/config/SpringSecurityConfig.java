@@ -41,12 +41,14 @@ public class SpringSecurityConfig {
                         hrr
                                 //APIs for permitAll
                                 .requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/api/v1/book/getAll-available").permitAll()
-                                .requestMatchers("/api/v1/book/getAll-genre/*").permitAll()
+                                .requestMatchers("/api/v1/book/getAll-filter").permitAll()
+                                .requestMatchers("/api/v1/book/search-title/*").permitAll()
+                                .requestMatchers("/api/v1/book/search-author/*").permitAll()
 
                                 //APIs for authenticate
                                 .requestMatchers("/api/v1/librarians/update-own").authenticated()
-                                .requestMatchers("/api/v1/member/**").authenticated()
+                                .requestMatchers("/api/v1/member/getAll").authenticated()
+                                .requestMatchers("/api/v1/member/update/").authenticated()
                                 .requestMatchers("/api/v1/book/**").authenticated()
 
 
