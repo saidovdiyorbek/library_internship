@@ -11,8 +11,8 @@ POST localhost:8080/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "quyon",
-  "password": "12312312"
+  "username": "sotila",
+  "password": "12345678"
 }
 
 ### Refresh token
