@@ -42,15 +42,22 @@ public class BookController {
         return ResponseEntity.ok(service.delete(bookId));
     }
 
-    @GetMapping("/getAll-available")
-    public ResponseEntity<List<BookCreateDTO.BookResponseMember>> getAllAvailable(){
-        logger.info("getAll available book");
-        return ResponseEntity.ok(service.getAllAvailable());
+    @GetMapping("/getAll-filter")
+    public ResponseEntity<List<BookCreateDTO.BookResponseMember>> getAllFilter(@RequestBody @Valid BookCreateDTO.BookFilterDTO dto){
+        logger.info("getAll filter book");
+        return ResponseEntity.ok(service.getAllFilter(dto));
     }
 
-    @GetMapping("/getAll-genre/{genre}")
-    public ResponseEntity<List<BookCreateDTO.BookResponseMember>> getAllGenre(@PathVariable("genre") String genre){
-        logger.info("getAll genre book");
-        return ResponseEntity.ok(service.getAllGenre(genre));
+    @GetMapping("/search-title/{title}")
+    public ResponseEntity<List<BookCreateDTO.BookResponseMember>> searchTitle(@PathVariable("title") String title){
+        logger.info("search title");
+        return ResponseEntity.ok(service.searchTitle(title));
     }
+
+    @GetMapping("/search-author/{author}")
+    public ResponseEntity<List<BookCreateDTO.BookResponseMember>> searchAuthor(@PathVariable("author") String author){
+        logger.info("search author");
+        return ResponseEntity.ok(service.searchAuthor(author));
+    }
+
 }
