@@ -20,5 +20,17 @@ public interface BookRepository extends CrudRepository<Book, String> {
             "where g.title = :genre")
     List<Book> findByGenre(@Param("genre") String genre);
 
+    @Query("from Book b " +
+            "where b.title like :title%")
+    List<Book> findByTitle(@Param("title") String title);
+
+    @Query("from Book b " +
+            "join b.author a " +
+            "where a.firstName like :author% or a.lastName like %:author or a.lastName like :author%")
+    List<Book> findByAuthor(@Param("author") String author);
+
+
+
+
 }
 
