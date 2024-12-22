@@ -3,6 +3,7 @@ package intership.libraryintership.service;
 import intership.libraryintership.dto.customResponse.StandardResponse;
 import intership.libraryintership.dto.member.MemberCreateDTO;
 import intership.libraryintership.entity.Member;
+import intership.libraryintership.enums.Role;
 import intership.libraryintership.exceptions.AppBadRequestException;
 import intership.libraryintership.exceptions.DataNotFoundException;
 import intership.libraryintership.exceptions.DuplicateDataException;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import static intership.libraryintership.util.SpringSecurityUtil.getCurrentUserId;
+import static intership.libraryintership.util.SpringSecurityUtil.getCurrentUserRole;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -61,7 +63,7 @@ public class MemberService {
         if (byId.isEmpty()) {
             throw new DataNotFoundException("Member not found");
         }
-        if (!byId.get().getCreatedById().equals(getCurrentUserId())) {
+        if (!byId.get().getCreatedById().equals(getCurrentUserId()) && getCurrentUserRole().equals(Role.ROLE_ADMIN)) {
             throw new AppBadRequestException("Whoever created the member can change it.");
         }
 
