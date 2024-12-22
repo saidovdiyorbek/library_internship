@@ -16,11 +16,17 @@ public class Book {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "author_id", nullable = false)
     private String authorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", insertable = false, updatable = false)
+    private Author author;
 
-    @Column(nullable = false)
+    @Column(name = "genre_id", nullable = false)
     private String genreId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id", insertable = false, updatable = false)
+    private Genre genre;
 
     @Column
     private Integer count;

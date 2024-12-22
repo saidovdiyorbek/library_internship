@@ -1,0 +1,27 @@
+### Create faf2e20e-2bbd-450c-a2e7-878da72e85de
+POST localhost:8080/api/v1/genre/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw
+
+{
+  "title": "Action"
+}
+
+### Get all
+GET localhost:8080/api/v1/genre/getAll
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw
+
+### Update
+PUT localhost:8080/api/v1/genre/update/faf2e20e-2bbd-450c-a2e7-878da72e85de
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw
+
+{
+  "title": "Action Fast"
+}
+
+###
+DELETE localhost:8080/api/v1/genre/delete/9d774954-d544-4726-a769-a013ef81a0a6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw

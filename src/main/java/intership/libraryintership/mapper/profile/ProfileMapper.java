@@ -1,8 +1,7 @@
-package intership.libraryintership.mapper;
+package intership.libraryintership.mapper.profile;
 
 import intership.libraryintership.dto.profile.ProfileCreateDTO;
 import intership.libraryintership.entity.Profile;
-import intership.libraryintership.repository.ProfileRepository;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

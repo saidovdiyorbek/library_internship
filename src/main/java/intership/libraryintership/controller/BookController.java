@@ -41,4 +41,16 @@ public class BookController {
         logger.info("delete book");
         return ResponseEntity.ok(service.delete(bookId));
     }
+
+    @GetMapping("/getAll-available")
+    public ResponseEntity<List<BookCreateDTO.BookResponseMember>> getAllAvailable(){
+        logger.info("getAll available book");
+        return ResponseEntity.ok(service.getAllAvailable());
+    }
+
+    @GetMapping("/getAll-genre/{genre}")
+    public ResponseEntity<List<BookCreateDTO.BookResponseMember>> getAllGenre(@PathVariable("genre") String genre){
+        logger.info("getAll genre book");
+        return ResponseEntity.ok(service.getAllGenre(genre));
+    }
 }

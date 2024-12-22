@@ -6,12 +6,10 @@ import intership.libraryintership.dto.profile.ProfileCreateDTO;
 import intership.libraryintership.entity.Profile;
 import intership.libraryintership.exceptions.DuplicateProfileException;
 import intership.libraryintership.exceptions.UserNotFoundException;
-import intership.libraryintership.mapper.ProfileMapper;
+import intership.libraryintership.mapper.profile.ProfileMapper;
 import intership.libraryintership.repository.ProfileRepository;
-import intership.libraryintership.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import static intership.libraryintership.util.SpringSecurityUtil.getCurrentUserId;
@@ -70,15 +68,15 @@ public class ProfileService {
         boolean existsByUsername = repository.existsByUsername(username);
 
         if (existsByEmail && existsByUsername) {
-            return new StandardResponse("Email and Username already exists", false);
+            return new StandardResponse("Email and Username already exists", false, null);
         }
         if (existsByEmail) {
-            return new StandardResponse("Email already exists", false);
+            return new StandardResponse("Email already exists", false, null);
         }
         if (existsByUsername) {
-            return new StandardResponse("Username already exists", false);
+            return new StandardResponse("Username already exists", false, null);
         }
-        return new StandardResponse("Username and Email not found", true);
+        return new StandardResponse("Username and Email not found", true, null);
     }
 
     public List<ProfileCreateDTO.ProfileResponse> getAll() {

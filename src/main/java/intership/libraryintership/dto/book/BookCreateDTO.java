@@ -14,4 +14,12 @@ public record BookCreateDTO(
             String genreId,
             Integer count
     ){}
+    public record BookResponseMember(
+            String title,
+            String authorFirstName,
+            String authorLastName,
+            String genreTitle
+
+    ){}
+
 }

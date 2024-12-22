@@ -1,0 +1,33 @@
+### Create
+POST localhost:8080/api/v1/member/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgwNzU0MiwiZXhwIjoxNzM1NDEyMzQyfQ.S15SWpv73Ud1JbjCofwOS1yo1-kz9cJ-O3IfGLD3eVY
+
+{
+  "name": "Sherzod",
+  "email": "sherikk@gmail.com",
+  "phone": "+998990001212"
+}
+
+### Get all
+GET localhost:8080/api/v1/member/getAll
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgwNzU0MiwiZXhwIjoxNzM1NDEyMzQyfQ.S15SWpv73Ud1JbjCofwOS1yo1-kz9cJ-O3IfGLD3eVY
+
+
+### Update
+PUT localhost:8080/api/v1/member/update/37c59401-9a03-4e2e-9fca-83e6f32f4b32
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgwNzU0MiwiZXhwIjoxNzM1NDEyMzQyfQ.S15SWpv73Ud1JbjCofwOS1yo1-kz9cJ-O3IfGLD3eVY
+
+{
+  "name": "Shertoy",
+  "email": "perka@gmail.com",
+  "phone": "998881212"
+}
+
+### Delete
+DELETE localhost:8080/api/v1/member/delete/37c59401-9a03-4e2e-9fca-83e6f32f4b32
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgwNzU0MiwiZXhwIjoxNzM1NDEyMzQyfQ.S15SWpv73Ud1JbjCofwOS1yo1-kz9cJ-O3IfGLD3eVY
+

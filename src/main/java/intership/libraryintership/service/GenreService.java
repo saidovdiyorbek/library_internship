@@ -3,12 +3,12 @@ package intership.libraryintership.service;
 import intership.libraryintership.dto.genre.GenreCreateDTO;
 import intership.libraryintership.entity.Genre;
 import intership.libraryintership.exceptions.DataNotFoundException;
-import intership.libraryintership.mapper.GenreMapper;
+import intership.libraryintership.mapper.genre.GenreMapper;
 import intership.libraryintership.repository.GenreRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GenreService {
     private static final Logger log = LoggerFactory.getLogger(GenreService.class);
+    @Qualifier("genreMapper")
     private final GenreMapper mapper;
 
     private final GenreRepository repository;
@@ -70,6 +71,6 @@ public class GenreService {
     public String delete(String genreId) {
         log.info("delete book in service");
         repository.findById(genreId).ifPresent(repository::delete);
-        return genreId;
+        return "Deleted " + genreId;
     }
 }

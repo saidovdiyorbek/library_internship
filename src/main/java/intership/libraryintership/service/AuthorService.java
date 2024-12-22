@@ -4,23 +4,25 @@ import intership.libraryintership.dto.author.AuthorCreateDTO;
 import intership.libraryintership.entity.Author;
 import intership.libraryintership.exceptions.DataNotFoundException;
 import intership.libraryintership.exceptions.DuplicateDataException;
-import intership.libraryintership.mapper.AuthorMapper;
+import intership.libraryintership.mapper.author.AuthorMapper;
 import intership.libraryintership.repository.AuthorRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthorService {
     private final static Logger log = LoggerFactory.getLogger(AuthorService.class);
     private final AuthorRepository repository;
+    @Qualifier("authorMapper")
     private final AuthorMapper mapper;
 
 
@@ -54,13 +56,18 @@ public class AuthorService {
 
     public AuthorCreateDTO.AuthorStandardResponse update(String authorId,AuthorCreateDTO dto) {
         log.info("Updating author");
-        repository.findById(authorId).orElseThrow(() -> new DataNotFoundException("Author not found"));
+        Optional<Author> byId = repository.findById(authorId);
+        if (byId.isEmpty()) {
+            throw new DataNotFoundException("Author not found");
+        }
         boolean exists = repository.existsByFirstNameAndLastName(dto.firstName(), dto.lastName());
         if (exists) {
             throw new DuplicateDataException("Author already exists");
         }
 
-        Author author = mapper.authorCreateDTOToAuthor(dto);
+        Author author = byId.get();
+        author.setFirstName(dto.firstName());
+        author.setLastName(dto.lastName());
         repository.save(author);
         log.info("Author updated successfully");
         AuthorCreateDTO.AuthorStandardResponse response

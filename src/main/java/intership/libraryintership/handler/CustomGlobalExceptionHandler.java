@@ -60,5 +60,23 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return ResponseEntity.status(404).body(e.getMessage());
     }
 
+    @ExceptionHandler(BookAlreadyExistsException.class)
+    public ResponseEntity<?> exceptionHandler(BookAlreadyExistsException e) {
+        return ResponseEntity.status(200).body(e.getMessage());
+    }
 
+    @ExceptionHandler(AppBadRequestException.class)
+    public ResponseEntity<?> exceptionHandler(AppBadRequestException e) {
+        return ResponseEntity.status(401).body(e.getMessage());
+    }
+
+    @ExceptionHandler(LoanCountException.class)
+    public ResponseEntity<?> exceptionHandler(LoanCountException e) {
+        return ResponseEntity.status(200).body(e.getMessage());
+    }
+
+    @ExceptionHandler(StatusOKButException.class)
+    public ResponseEntity<?> exceptionHandler(StatusOKButException e) {
+        return ResponseEntity.status(200).body(e.getMessage());
+    }
 }

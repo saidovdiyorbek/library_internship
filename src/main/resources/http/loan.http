@@ -1,0 +1,20 @@
+### Create
+POST localhost:8080/api/v1/loan/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgxMDAzNSwiZXhwIjoxNzM1NDE0ODM1fQ.WMkU4m2qECg89NQCOmZH-4Axo-nR77RPmY61PzZsnqE
+
+{
+  "memberId": "c423b2fc-96a2-4839-91e8-0aa546dfceef",
+  "bookId": "06bd7e46-58a5-4e20-ac06-f912d2b7257d",
+  "dueDate": "2024-12-25"
+}
+
+### Return loan book
+PUT localhost:8080/api/v1/loan/return-book-member
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgxMDAzNSwiZXhwIjoxNzM1NDE0ODM1fQ.WMkU4m2qECg89NQCOmZH-4Axo-nR77RPmY61PzZsnqE
+
+{
+  "email": "sherikk@gmail.com",
+  "title": "Dasturlash.ru"
+}

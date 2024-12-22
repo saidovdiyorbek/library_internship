@@ -1,15 +1,18 @@
 package intership.libraryintership.service;
 
 import intership.libraryintership.dto.book.BookCreateDTO;
+import intership.libraryintership.dto.customResponse.StandardResponse;
 import intership.libraryintership.entity.Book;
-import intership.libraryintership.exceptions.AppBadRequestException;
+import intership.libraryintership.exceptions.BookAlreadyExistsException;
 import intership.libraryintership.exceptions.DataNotFoundException;
-import intership.libraryintership.mapper.BookMapper;
+import intership.libraryintership.mapper.book.BookMapper;
 import intership.libraryintership.repository.BookRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,25 +25,32 @@ import java.util.Optional;
 public class BookService {
     private static final Logger logger = LoggerFactory.getLogger(BookService.class);
     private final BookRepository repository;
-    private final BookMapper mapper;
     private final AuthorService authorService;
     private final GenreService genreService;
+    @Autowired
+    @Lazy
+    LoanService loanService;
+
+    @Qualifier("bookMapper")
+    private final BookMapper mapper;
 
     public BookCreateDTO.BookStandardResponse create(BookCreateDTO dto) {
         boolean existsAuthor = authorService.exists(dto.authorId());
         boolean existsGenre = genreService.exists(dto.genreId());
 
-        if (existsAuthor) {
+        if (!existsAuthor) {
             throw new DataNotFoundException("Author not found " + dto.authorId());
         }
-        if (existsGenre) {
+        if (!existsGenre) {
             throw new DataNotFoundException("Genre not found " + dto.genreId());
         }
 
         logger.info("create book");
-        Book book = repository.existsByTitleAndAuthorIdAndGenreId(dto.title(), dto.authorId(), dto.genreId());
+        Book book = repository.findByTitleAndAuthorIdAndGenreId(dto.title(), dto.authorId(), dto.genreId());
         if (book != null) {
-            throw new AppBadRequestException("This book is available, please increase the quantity" + book.getId());
+            book.setCount(book.getCount() + dto.count());
+            repository.save(book);
+            throw new BookAlreadyExistsException("This book already exists, automatically increased book count" + book.getId() +" "+ dto.count());
         }
         Book book1 = mapper.toBook(dto);
         book1.setCreatedAt(LocalDateTime.now());
@@ -64,7 +74,10 @@ public class BookService {
         if (!optionalBook.isPresent()) {
             throw new DataNotFoundException("Book not found " + bookId);
         }
-        Book book = mapper.toBook(dto);
+        Book book = optionalBook.get();
+        book.setTitle(dto.title());
+        book.setAuthorId(dto.authorId());
+        book.setGenreId(dto.genreId());
         repository.save(book);
         logger.info("update book successful in service");
         return mapper.toBookStandardResponse(book);
@@ -74,5 +87,37 @@ public class BookService {
         logger.info("delete book in service");
         repository.findById(bookId).ifPresent(repository::delete);
         return bookId;
+    }
+
+    public StandardResponse findById(String bookId) {
+        Optional<Book> byId = repository.findById(bookId);
+        if (!byId.isPresent()) {
+            return new StandardResponse("Book not found", false, null);
+        }
+        return new StandardResponse("Book found", true, byId.get());
+    }
+
+    public List<BookCreateDTO.BookResponseMember> getAllAvailable() {
+        List<BookCreateDTO.BookResponseMember> books = new ArrayList<>();
+
+        for (String bookId : repository.findByIdIs()) {
+            Optional<Book> optionalBook = repository.findById(bookId);
+
+            int loanCount = loanService.loanCount(bookId);
+            if (optionalBook.isEmpty() || optionalBook.get().getCount() > loanCount) {
+                books.add(mapper.bookToBookResponseMember(optionalBook.get()));
+            }
+
+        }
+        return books;
+    }
+
+    public List<BookCreateDTO.BookResponseMember> getAllGenre(String genre) {
+        List<BookCreateDTO.BookResponseMember> books = new ArrayList<>();
+
+        for (Book book : repository.findByGenre(genre)) {
+            books.add(mapper.bookToBookResponseMember(book));
+        }
+        return books;
     }
 }

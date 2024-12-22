@@ -14,9 +14,7 @@ public record MemberCreateDTO(
         String email,
 
         @NotBlank
-        String phone,
-        @NotBlank
-        Integer createdById
+        String phone
 ) {
     public record MemberStandardResponse(
             String id,

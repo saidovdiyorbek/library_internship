@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "loan")
@@ -32,4 +33,7 @@ public class Loan {
 
     @Column
     private LocalDate returnDate;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 }

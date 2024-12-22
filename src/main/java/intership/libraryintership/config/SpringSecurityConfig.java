@@ -41,9 +41,13 @@ public class SpringSecurityConfig {
                         hrr
                                 //APIs for permitAll
                                 .requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/api/v1/book/getAll-available").permitAll()
+                                .requestMatchers("/api/v1/book/getAll-genre/*").permitAll()
 
                                 //APIs for authenticate
                                 .requestMatchers("/api/v1/librarians/update-own").authenticated()
+                                .requestMatchers("/api/v1/member/**").authenticated()
+                                .requestMatchers("/api/v1/book/**").authenticated()
 
 
 

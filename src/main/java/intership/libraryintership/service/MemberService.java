@@ -1,18 +1,20 @@
 package intership.libraryintership.service;
 
-import intership.libraryintership.dto.genre.GenreCreateDTO;
+import intership.libraryintership.dto.customResponse.StandardResponse;
 import intership.libraryintership.dto.member.MemberCreateDTO;
-import intership.libraryintership.entity.Genre;
 import intership.libraryintership.entity.Member;
+import intership.libraryintership.exceptions.AppBadRequestException;
 import intership.libraryintership.exceptions.DataNotFoundException;
 import intership.libraryintership.exceptions.DuplicateDataException;
-import intership.libraryintership.mapper.MemberMapper;
+import intership.libraryintership.mapper.member.MemberMapper;
 import intership.libraryintership.repository.MemberRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import static intership.libraryintership.util.SpringSecurityUtil.getCurrentUserId;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class MemberService {
     private static final Logger log = LoggerFactory.getLogger(MemberService.class);
     private final MemberRepository repository;
+    @Qualifier("memberMapper")
     private final MemberMapper mapper;
 
     public MemberCreateDTO.MemberStandardResponse create(MemberCreateDTO  dto) {
@@ -34,6 +37,7 @@ public class MemberService {
         }
 
         Member member = mapper.createDTOToMember(dto);
+        member.setCreatedById(getCurrentUserId());
         member.setCreatedAt(LocalDateTime.now());
         member.setMemberShipDate(LocalDateTime.now());
         repository.save(member);
@@ -51,11 +55,17 @@ public class MemberService {
     }
 
     public MemberCreateDTO.MemberStandardResponse update(String memberId, MemberCreateDTO dto) {
-        log.info("update member in service");
+
+
         Optional<Member> byId = repository.findById(memberId);
         if (byId.isEmpty()) {
             throw new DataNotFoundException("Member not found");
         }
+        if (!byId.get().getCreatedById().equals(getCurrentUserId())) {
+            throw new AppBadRequestException("Whoever created the member can change it.");
+        }
+
+        log.info("update member in service");
         Member member = byId.get();
         member.setName(dto.name());
         member.setEmail(dto.email());
@@ -69,5 +79,13 @@ public class MemberService {
         log.info("delete member in service");
         repository.findById(memberId).ifPresent(repository::delete);
         return "Deleted "+memberId;
+    }
+
+    public StandardResponse findById(String memberId) {
+        Optional<Member> byId = repository.findById(memberId);
+        if (!byId.isPresent()) {
+            return new StandardResponse("Member not found", false, null);
+        }
+        return new StandardResponse("Member found", true, byId.get());
     }
 }

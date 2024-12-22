@@ -1,0 +1,37 @@
+### Create
+POST localhost:8080/api/v1/book/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgxMDAzNSwiZXhwIjoxNzM1NDE0ODM1fQ.WMkU4m2qECg89NQCOmZH-4Axo-nR77RPmY61PzZsnqE
+
+{
+  "title": "Rus",
+  "authorId": "1ce9c75a-b98c-4e86-a481-1b9de27deae1",
+  "genreId": "998b9b01-3442-479b-8c23-e4426fc59627",
+  "count": 1
+}
+
+### Get all
+GET http://localhost:8080/api/v1/book/getAll
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgxMDAzNSwiZXhwIjoxNzM1NDE0ODM1fQ.WMkU4m2qECg89NQCOmZH-4Axo-nR77RPmY61PzZsnqE
+
+
+### Update
+PUT localhost:8080/api/v1/book/update/4fc1b49f-3bde-4e78-9768-7e9d5fd9c2b4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9MSUJSQVJJQU4iLCJsb2dpbiI6InNvdGlsYSIsInN1YiI6InNvdGlsYSIsImlhdCI6MTczNDgxMDAzNSwiZXhwIjoxNzM1NDE0ODM1fQ.WMkU4m2qECg89NQCOmZH-4Axo-nR77RPmY61PzZsnqE
+
+{
+  "title": "Ertaklar yaxshilika yetaklar",
+  "authorId": "1ce9c75a-b98c-4e86-a481-1b9de27deae1",
+  "genreId": "faf2e20e-2bbd-450c-a2e7-878da72e85de",
+  "count": 12
+}
+
+### Get all available
+GET localhost:8080/api/v1/book/getAll-available
+Content-Type: application/json
+
+### Get all genre
+GET localhost:8080/api/v1/book/getAll-genre/Action
+Content-Type: application/json
