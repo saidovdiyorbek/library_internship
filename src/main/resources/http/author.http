@@ -1,0 +1,29 @@
+### Create author
+POST localhost:8080/api/v1/author/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw
+
+{
+  "firstName": "Alisher",
+  "lastName": "Navoiy"
+}
+
+### Get all author
+GET localhost:8080/api/v1/author/getAll-admin
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw
+
+### Update author
+PUT localhost:8080/api/v1/author/update/43605206-3884-403b-bce0-dc1950a19ba1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw
+
+{
+  "firstName": "Navoiy",
+  "lastName": "Alisher"
+}
+
+### Delete
+DELETE localhost:8080/api/v1/author/delete/1ce9c75a-b98c-4e86-a481-1b9de27deae1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImxvZ2luIjoiYWRtaW4yIiwic3ViIjoiYWRtaW4yIiwiaWF0IjoxNzM0ODA0ODc3LCJleHAiOjE3MzU0MDk2Nzd9.LxFpGzfbUTOE0EGnxRe_lXAmpsZUqW22iru_EGS5CGw
