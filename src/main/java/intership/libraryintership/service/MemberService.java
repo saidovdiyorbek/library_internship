@@ -33,9 +33,13 @@ public class MemberService {
 
     public MemberCreateDTO.MemberStandardResponse create(MemberCreateDTO  dto) {
         log.info("create member in service");
-        boolean exists = repository.existsByEmailAndPhone(dto.email(), dto.phone());
-        if (exists) {
-            throw new DuplicateDataException("Member already exists");
+        boolean existsEmail = repository.existsByEmail(dto.email());
+        boolean existsPhone = repository.existsByPhone(dto.phone());
+        if (existsEmail) {
+            throw new DuplicateDataException("Email already exists");
+        }
+        if (existsPhone) {
+            throw new DuplicateDataException("Phone already exists");
         }
 
         Member member = mapper.createDTOToMember(dto);
@@ -90,4 +94,5 @@ public class MemberService {
         }
         return new StandardResponse("Member found", true, byId.get());
     }
+
 }
